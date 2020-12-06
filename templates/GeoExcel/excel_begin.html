@@ -1,0 +1,67 @@
+{% extends "geonode_base.html" %}
+{% load i18n %}
+{% load staticfiles %}
+
+
+{% block title %} {% trans "GeoExcel Update"  %} - {{ block.super }}  {% endblock %}
+
+{% block body_class %}{% trans "GeoExcel upload" %}{% endblock %}
+
+
+{% block head %}
+
+{{ block.super }}
+<style>
+    th {
+        text-align: center;
+    }
+</style>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js" type="text/javascript"></script>
+<script type="text/javascript">
+    function validateCREATE(){
+        var input = $("#input1").val()
+        if(input.trim() == ''){
+            return false;
+        }
+
+        return true
+    }
+    function validateADD(){
+        if($("#tableName").children("option:selected").val() == 'None')
+        {
+            return false;
+        }
+        return true;
+    }
+
+</script>
+{% endblock %}
+
+{% block body_outer %}
+
+
+<h2>Create a new table or append new information</h2>
+
+<form action="{{action_create}}" method="POST" onsubmit="return validateCREATE();">
+    {% csrf_token %}
+    <input type="text" name="tableName" placeholder="What is the table Name?" id="input1">
+    <input type="hidden" name="path" value="{{path}}" />
+    <input type="hidden" name="fileName" value="{{fileName}}" />
+    <input id="Submit_Create" type="submit" value="CREATE NEW TABLE">
+</form>
+<br>
+<form action="{{action_add}}" method="POST" onsubmit="return validateADD();">
+    {% csrf_token %}
+    <select name="tableName" id="tableName">
+        <option value="None">None</option>
+        {% for name in tables%}
+            <option value="{{name}}">{{name}}</option>
+        {% endfor %}
+    </select>
+    <input type="hidden" name="path" value="{{path}}" />
+    <input type="hidden" name="fileName" value="{{fileName}}" />
+    <input id="Submit_Add" type="submit" value="ADD NEW ENTRIES">
+</form>
+
+{% endblock %}
+
