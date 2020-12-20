@@ -1,11 +1,7 @@
 import pandas as pd
 
-try:
-    from module_logs import log_logs_file
-    from module_DB import check_table, sqlExecute
-except:
-    from General_modules.module_logs import log_logs_file
-    from General_modules.module_DB import check_table, sqlExecute
+from General_modules.module_logs import log_logs_file
+from General_modules.module_DB import check_table, sqlExecute
 
 
 def copy_excel_database(directory, fileName, Database, tableName, tableCharacteristics, functionInsert, db_user, db_password, db_host, db_port, sheet_name=None, matrix=False, delete=True, create=True, information={}, cv=False):
