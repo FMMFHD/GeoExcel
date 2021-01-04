@@ -1,0 +1,15 @@
+# GeoExcel
+
+The objective of this component is to facilitate the integration of georeferenced data in excel format to use in future applications. GeoExcel is an extension of the GeoNode component due to its limitations.
+
+GeoNode has a graphical interface where the user can upload files with spatial attributes to the GeoServer, like shapefiles and geotiffs. The GeoNode module responsible for uploading data to the GeoServer is named Upload. Figure below represents a diagram of the integration of GeoExcel in GeoNode modules. The GeoExcel is inside of Upload Module because it is an extension that allows the upload of excel files. Therefore, GeoExcel was developed as an extension of GeoNode that allows the upload of excel files.
+
+![GeoExcel Diagram](https://github.com/FMMFHD/GeoExcel/blob/main/img_readme/Geo_Excel_diagram.png)
+
+When the GeoNode module detects that the uploaded file is an excel file, it runs the GeoExcel code. This code does the following procedures. Firstly, the excel file must be opened to access the data. Pandas is a library used to control and to access excel files. After access is established, the next step is to verify if the table exists in the database, otherwise it must be created. The final step is to copy the data from the excel file to the table in the database. As the final step depends on the type of data that is stored in the excel file, the process calls a function responsible for parsing the excel file, that is an input parameter of the method.
+
+User Interface (UI) is an extension of the Upload module UI, that allows to the user to upload excel files. After choosing an excel file, the user will have to choose either to create a new table or to update an existing one. If the user wants to update a table, then has to choose the table, being redirected to the initial web page that is the starting point to upload any file. If the user wants to upload the information to a table, then has to choose the name of the table and after that the user is redirected to a web page where the user must configure the parser that is used to upload the excel file (figure below). 
+
+![Configurator](https://github.com/FMMFHD/GeoExcel/blob/main/img_readme/Configurador.png)
+
+This configuration is divided in four steps: if the excel contains coordinates, then the user must select which columns represent latitude and longitude, the format of the coordinates, and the coordinate system; the second step is to choose the table's primary key; the third step is to connect the new table to another tables using foreign keys; the last step is to choose the data type (Integer, Float, String and Date/Time) of the remaining columns (the column that represents the coordinates and the columns that are linked to foreign tables already have the type of data defined).
